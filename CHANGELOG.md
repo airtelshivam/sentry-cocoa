@@ -1,5 +1,126 @@
 # Changelog
 
+## 8.10.0
+
+### Features
+
+- Add required reason API (#3206)
+- Record energy usage estimates for profiling (#3217)
+
+### Fixes
+
+- Remove a noisy NSLog (#3227)
+- WatchOS build for Xcode 15 (#3204)
+
+## 8.9.6
+
+### Fixed
+
+- Fix CPU usage collection for upcoming visualization in profiling flamecharts (#3214)
+
+## 8.9.5
+
+### Hybrid SDK support
+
+- Allow profiling from hybrid SDKs (#3194)
+
+## 8.9.4
+
+### Fixes
+ 
+- Remove linker settings from Package.swift (#3188)
+- Free memory returned by backtrace_symbols() in debug builds ([#3202](https://github.com/getsentry/sentry-cocoa/pull/3202))
+
+## 8.9.3
+
+### Fixes
+
+- Reclaim memory used by profiler when transactions are discarded (#3154)
+- Crashed session not being reported as crashed (#3183)
+
+## 8.9.2
+
+## Important Note
+
+**Do not use this version** if you use Release Health. It introduces a bug where crashed Sessions would not be reported correctly. This has been fixed in [version `8.9.3`](https://github.com/getsentry/sentry-cocoa/releases/tag/8.9.3).
+
+### Improvements
+
+- Reduced macOS SDK footprint by 2% (#3157) with similar changes for tvOS and watchOS (#3158, #3159, #3161)
+
+### Fixes
+
+- Fix a crash in SentryCoreDataTracker for nil error params (#3152)
+
+## 8.9.1
+
+### Fixes
+
+- Fix potential unbounded memory growth when starting profiled transactions from non-main contexts (#3135)
+
+## 8.9.0
+
+### Features
+
+- Symbolicate locally only when debug is enabled (#3079)
+
+This change considerably speeds up retrieving stacktraces, which the SDK uses for captureMessage, captureError and also for reporting file IO or DB operation on the main thread.
+
+- Sanitize HTTP info from breadcrumbs, spans and events (#3094)
+
+### Breaking change
+
+- Renamed `enableTimeToFullDisplay` to `enableTimeToFullDisplayTracing` (#3106)
+    - This is an experimental feature and may change at any time without a major revision.
+
+## 8.9.0-beta.1
+
+### Features
+
+- Symbolicate locally only when debug is enabled (#3079)
+- Sanitize HTTP info from breadcrumbs, spans and events (#3094)
+
+
+## 8.8.0
+
+### Features
+
+- Experimental support for Swift Async stacktraces (#3051)
+- Cache binary images to be used for crashes (#2939)
+
+### Fixes
+
+- Fix a data race for `SentryId.empty` (#3072)
+- Duplicated HTTP breadcrumbs (#3058)
+- Expose SentryPrivate and SentrySwiftUI schemes for cartahge clients that have `--no-use-binaries` option (#3071)
+- Convert last remaining `sprintf` call to `snprintf` (#3077)
+- Fix a crash when serializing profiling data (#3092)
+
+## 8.7.4
+
+### Fixes
+
+- Changed `Trace` serialized value of `sampled` from string to boolean (#3067)
+
+### Breaking Changes
+
+- Removed `nameForSentrySampleDecision` which shouldn't have been public (#3067)
+
+## 8.7.3
+
+### Fixes
+
+- Convert one of the two remaining usages of `sprintf` to `snprintf` (#2866)
+- Fix use-after-free ASAN warning (#3042)
+- Fix memory leaks in the profiler (#3055, #3061)
+
+## 8.7.2
+
+### Fixed
+
+- Fix crashes in profiling serialization race condition (#3018, #3035)
+- Fix a crash for user interaction transactions (#3036)
+
 ## 8.7.1
 
 ### Features

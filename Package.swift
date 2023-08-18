@@ -1,4 +1,4 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.3
 import PackageDescription
 
 let package = Package(
@@ -41,6 +41,9 @@ let package = Package(
                  path: "Sources",
                  sources: [
                     "Swift"
+                 ],
+                 resources: [
+                    .copy("Resources/PrivacyInfo.xcprivacy")
                  ]
                ),
         .target ( name: "SentrySwiftUI",
