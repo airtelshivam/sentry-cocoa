@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+### Fixes
+
+- Remove warning about non-portable path to file "SentryDsn.h" (#3270)
+- Privacy manifest collection purposes type (#3276)
+
+### Features
+
+- Rename "http.method" to "http.request.method" for network Spans #3268
+
+## 8.11.0
+
 ### Features
 
 - Distributed tracing without performance (#3196)
