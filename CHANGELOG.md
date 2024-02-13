@@ -2,6 +2,192 @@
 
 ## Unreleased
 
+### Improvements
+
+- Cache installationID async to avoid file IO on the main thread when starting the SDK (#3601)
+- Add reason for NSPrivacyAccessedAPICategoryFileTimestamp (#3626)
+
+### Fixes
+
+- Finish TTID span when transaction finishes (#3610)
+- Dont take screenshot and view hierarchy for app hanging (#3620)
+
+## 8.20.0
+
+### Features
+
+- Add visionOS as device family (#3548)
+- Add VisionOS Support for Carthage (#3565)
+
+### Fixes 
+
+- Move header reference out of "extern C" (#3538)
+- Clarify FramesTracker log message (#3570)
+- Fix rare battery breadcrumbs crash (#3582)
+- Fix synchronization issue in FramesTracker (#3571)
+- Fix SentryFileManager logs warning for .DS_Files (#3584)
+- Fix FileManager logs info instead of error when a path doesn't exist (#3594)
+
+## 8.19.0
+
+### Features
+
+- Send debug meta for app start transactions (#3543)
+
+### Fixes
+
+- Fix typo in BUILD_LIBRARY_FOR_DISTRIBUTION variable in Makefile (#3488)
+- Remove dispatch queue metadata collection to fix crash (#3522)
+- Make SentryScope.useSpan non-blocking (#3568)
+- Don't override `sentry-trace` and `baggage` headers (#3540)
+
+## 8.18.0
+
+### Features
+
+- Add frames delay to transactions and spans (#3487, #3496)
+- Add slow and frozen frames to spans (#3450, #3478)
+- Split up UIKit and App Init App Start Span (#3534)
+- Prewarmed App Start Tracing is stable (#3536)
+
+### Fixes
+
+- TTFD waits for next drawn frame (#3505)
+- Fix TTID/TTFD for app start transactions (#3512): TTID/TTFD spans and measurements for app start transaction now include the app start duration.
+- Crash when adding a crumb for a timezone change (#3524)
+- Fix a race condition in SentryTracer (#3523)
+- App start ends when first frame is drawn when performanceV2 is enabled (#3530)
+- Use correct rendered frames timestamp for TTID/TTFD and app start (#3531)
+- Missing transactions when not calling `reportFullyDisplayed` (#3477)
+
+## 8.17.2
+
+### Fixes
+
+- **Fix marking manual sessions as crashed (#3501)**: When turning off autoSessionTracking and manually starting and ending sessions, the SDK didn't mark sessions as crashed when sending a crash event to Sentry. This is fixed now.
+
+## 8.17.1
+
+### Fixes 
+
+- Crash when UINavigationController doesn't have rootViewController (#3455)
+- Crash when synchronizing invalid JSON breadcrumbs to SentryWatchdogTermination (#3458)
+- Check for NULL in binary image cache (#3469)
+- Threading issues in binary image cache (#3468)
+- Finish transaction for external view controllers (#3440)
+
+## 8.17.0
+
+### Features
+
+- SwiftUI support is no longer in Beta (#3441) 
+
+## 8.16.1
+
+### Fixes
+
+- Fix inaccurate number of frames for transactions (#3439)
+
+## 8.16.0
+
+### Features
+
+- Add screen name to app context (#3346)
+- Add cache directory option (#3369)
+
+### Fixes
+
+- Infinite loop when parsing MetricKit data (#3395)
+- Fix incorrect implementation in #3398 to work around a profiling crash (#3405)
+- Fix crash in SentryFramesTracker (#3424)
+
+### Improvements
+
+- Build XCFramework with Xcode 15 (#3415)
+
+The XCFramework attached to GitHub releases is now built with Xcode 15.
+
+## 8.15.2
+
+### Fixes
+
+- Crash when logging from certain profiling contexts (#3390)
+
+## 8.15.1
+
+### Fixes
+
+- Crash when initializing SentryHub manually (#3374)
+
+## 8.15.0
+
+### Features
+
+- Enrich error events with any underlying NSErrors reported by Cocoa APIs (#3230)
+- Add experimental visionOS support (#3328)
+- Improve OOM detection by ignoring system reboot (#3352)
+- Add thread id and name to span data (#3359)
+
+### Fixes
+
+- Reporting app hangs from background (#3298)
+- Thread sanitizer data race warnings in ANR tracker, network tracker and span finish (#3303)
+- Stop sending empty thread names (#3361)
+- Work around edge case with a thread info kernel call sometimes returning invalid data, leading to a crash (#3364)
+- Crashes when trace ID is externally modified or profiler fails to initialize (#3365)
+
+## 8.14.2
+
+### Fixes
+
+- Missing `mechanism.handled` is not considered crash (#3353)
+
+## 8.14.1
+
+### Fixes
+
+- SPM build failure involving "unsafe settings" (#3348)
+
+## 8.14.0
+
+### Features
+
+- Sentry can now be used without linking UIKit; this is helpful for using the SDK in certain app extension contexts (#3175)
+**Note:** this is an experimental feature not yet available for with SPM.
+**Warning:** this breaks some SPM integrations. Use 8.14.1 if you integrate using SPM.
+
+- GA of MetricKit integration (#3340)
+
+Once enabled, this feature subscribes to [MetricKit's](https://developer.apple.com/documentation/metrickit) [MXDiagnosticPayload](https://developer.apple.com/documentation/metrickit/mxdiagnosticpayload) data, converts it to events, and sends it to Sentry.
+The MetricKit integration subscribes to [MXHangDiagnostic](https://developer.apple.com/documentation/metrickit/mxhangdiagnostic),
+[MXDiskWriteExceptionDiagnostic](https://developer.apple.com/documentation/metrickit/mxdiskwriteexceptiondiagnostic),
+and [MXCPUExceptionDiagnostic](https://developer.apple.com/documentation/metrickit/mxcpuexceptiondiagnostic).
+
+
+## 8.13.1
+
+### Fixes
+
+- Always start SDK on the main thread (#3291)
+- App hang with race condition for tick counter (#3290)
+- Remove "duplicate library" warning (#3312)
+- Fix multiple issues in Reachability (#3338)
+- Remove unnecessary build settings (#3325)
+- Crash in SentryTracer when cancelling timer (#3333)
+
+## 8.13.0
+
+### Fixes
+
+- Remove sync call to main thread from SentryUIDeviceWrapper (#3295)
+
+### Features
+
+- Record changes to network connectivity in breadcrumbs (#3232)
+- Add Sampling Decision to Trace Envelope Header (#3286)
+
+## 8.12.0
+
 ### Fixes
 
 - Remove warning about non-portable path to file "SentryDsn.h" (#3270)
