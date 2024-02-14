@@ -17,7 +17,6 @@
     instance.uninstallAsyncHooksCalled = NO;
     instance.internalFreeMemorySize = 0;
     instance.internalAppMemorySize = 0;
-    instance.internalFreeStorageSize = 0;
     return instance;
 }
 
@@ -74,11 +73,6 @@
 - (bytes)appMemorySize
 {
     return self.internalAppMemorySize;
-}
-
-- (bytes)freeStorageSize
-{
-    return self.internalFreeStorageSize;
 }
 
 @end

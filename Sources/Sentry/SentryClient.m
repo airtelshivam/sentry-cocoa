@@ -598,7 +598,7 @@ NSString *const DropSessionLogMessage = @"Session has no release name. Won't sen
         // applicable
         [self removeExtraDeviceContextFromEvent:event];
     } else if (!isCrashEvent) {
-        // Store the current free memory, free storage, battery level and more mutable properties,
+        // Store the current free memory battery level and more mutable properties,
         // at the time of this event, but not for crashes as the current data isn't guaranteed to be
         // the same as when the app crashed.
         [self applyExtraDeviceContextToEvent:event];
@@ -803,7 +803,6 @@ NSString *const DropSessionLogMessage = @"Session has no release name. Won't sen
                     key:@"device"
                   block:^(NSMutableDictionary *device) {
                       [device removeObjectForKey:SentryDeviceContextFreeMemoryKey];
-                      [device removeObjectForKey:@"free_storage"];
                       [device removeObjectForKey:@"orientation"];
                       [device removeObjectForKey:@"charging"];
                       [device removeObjectForKey:@"battery_level"];

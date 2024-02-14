@@ -54,7 +54,6 @@ SentryExtraContextProvider ()
     NSMutableDictionary *extraDeviceContext = [[NSMutableDictionary alloc] init];
 
     extraDeviceContext[SentryDeviceContextFreeMemoryKey] = @(self.crashWrapper.freeMemorySize);
-    extraDeviceContext[@"free_storage"] = @(self.crashWrapper.freeStorageSize);
     extraDeviceContext[@"processor_count"] = @([self.processInfoWrapper processorCount]);
 
 #if TARGET_OS_IOS
