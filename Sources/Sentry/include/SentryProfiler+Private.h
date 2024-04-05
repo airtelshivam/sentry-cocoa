@@ -38,7 +38,7 @@ SENTRY_EXTERN_C_BEGIN
  */
 BOOL threadSanitizerIsPresent(void);
 
-NSString *profilerTruncationReasonName(SentryProfilerTruncationReason reason);
+SENTRY_EXTERN NSString *profilerTruncationReasonName(SentryProfilerTruncationReason reason);
 
 SENTRY_EXTERN_C_END
 
@@ -86,21 +86,6 @@ SENTRY_EXTERN_C_END
  */
 + (void)recordMetrics;
 
-/**
- * Given a transaction, return an envelope item containing any corresponding profile data to be
- * attached to the transaction envelope.
- * */
-+ (nullable SentryEnvelopeItem *)createProfilingEnvelopeItemForTransaction:
-                                     (SentryTransaction *)transaction
-                                                            startTimestamp:startTimestamp;
-
-/**
- * Collect profile data corresponding with the given traceId and time period.
- * */
-+ (nullable NSMutableDictionary<NSString *, id> *)collectProfileBetween:(uint64_t)startSystemTime
-                                                                    and:(uint64_t)endSystemTime
-                                                               forTrace:(SentryId *)traceId
-                                                                  onHub:(SentryHub *)hub;
 @end
 
 NS_ASSUME_NONNULL_END

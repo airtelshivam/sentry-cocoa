@@ -15,6 +15,7 @@
 #import "SentryRandom.h"
 #import "SentrySDK+Private.h"
 #import "SentrySamplerDecision.h"
+#import "SentryProfilerSerialization.h"
 #import "SentryScope.h"
 #import "SentrySpan.h"
 #import "SentrySpanContext+Private.h"
@@ -628,7 +629,8 @@ static BOOL appStartMeasurementRead;
 - (void)captureTransactionWithProfile:(SentryTransaction *)transaction
                        startTimestamp:(NSDate *)startTimestamp
 {
-    SentryEnvelopeItem *profileEnvelopeItem =
+    SentryEnvelopeItem *profileEnvelopeItem = profileEnvelopeItem(transaction, startTimestamp, self.traceId, <#SentryProfilerState * _Nonnull state#>, <#SentryProfilerTruncationReason truncationReason#>, <#SentryDebugImageProvider * _Nonnull debugImageProvider#>, <#SentryHub * _Nonnull hub#>, <#SentryScreenFrames * _Nonnull screenFrameData#>)
+    
         [SentryProfiler createProfilingEnvelopeItemForTransaction:transaction
                                                    startTimestamp:startTimestamp];
 
