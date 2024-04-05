@@ -6,8 +6,10 @@
 #    import "SentrySpan.h"
 #    import <Foundation/Foundation.h>
 
+@class SentryDebugImageProvider;
 @class SentryEnvelopeItem;
 @class SentryHub;
+@class SentryMetricProfiler;
 @class SentryProfilerState;
 @class SentryTransaction;
 
@@ -38,8 +40,6 @@ SENTRY_EXTERN_C_BEGIN
  */
 BOOL threadSanitizerIsPresent(void);
 
-SENTRY_EXTERN NSString *profilerTruncationReasonName(SentryProfilerTruncationReason reason);
-
 SENTRY_EXTERN_C_END
 
 /**
@@ -52,6 +52,12 @@ SENTRY_EXTERN_C_END
 @property (strong, nonatomic) SentryId *profilerId;
 
 @property (strong, nonatomic) SentryProfilerState *_state;
+
+@property (strong, nonatomic) SentryDebugImageProvider *_debugImageProvider;
+
+@property (assign, nonatomic) SentryProfilerTruncationReason _truncationReason;
+
+@property (strong, nonatomic) SentryMetricProfiler *_metricProfiler;
 
 #    if SENTRY_HAS_UIKIT
 @property (strong, nonatomic) SentryScreenFrames *_screenFrameData;

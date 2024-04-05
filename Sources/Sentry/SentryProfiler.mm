@@ -62,10 +62,7 @@ SentryProfiler *_Nullable _gCurrentProfiler;
 
 @implementation SentryProfiler {
     std::shared_ptr<SamplingProfiler> _profiler;
-    SentryMetricProfiler *_metricProfiler;
-    SentryDebugImageProvider *_debugImageProvider;
 
-    SentryProfilerTruncationReason _truncationReason;
     NSTimer *_timeoutTimer;
 }
 
@@ -80,7 +77,7 @@ SentryProfiler *_Nullable _gCurrentProfiler;
     _profilerId = [[SentryId alloc] init];
 
     SENTRY_LOG_DEBUG(@"Initialized new SentryProfiler %@", self);
-    _debugImageProvider = [SentryDependencyContainer sharedInstance].debugImageProvider;
+    self._debugImageProvider = [SentryDependencyContainer sharedInstance].debugImageProvider;
 
 #    if SENTRY_HAS_UIKIT
     // the frame tracker may not be running if SentryOptions.enableAutoPerformanceTracing is NO
@@ -132,7 +129,7 @@ SentryProfiler *_Nullable _gCurrentProfiler;
         SENTRY_LOG_DEBUG(@"A profiler is already running.");
         trackProfilerForTracer(_gCurrentProfiler, traceId);
         // record a new metric sample for every concurrent span start
-        [_gCurrentProfiler->_metricProfiler recordMetrics];
+        [_gCurrentProfiler._metricProfiler recordMetrics];
         return YES;
     }
 
@@ -158,7 +155,7 @@ SentryProfiler *_Nullable _gCurrentProfiler;
     if (_gCurrentProfiler == nil) {
         return;
     }
-    [_gCurrentProfiler->_metricProfiler recordMetrics];
+    [_gCurrentProfiler._metricProfiler recordMetrics];
 }
 
 - (void)timeoutAbort
@@ -186,8 +183,8 @@ SentryProfiler *_Nullable _gCurrentProfiler;
 - (void)stopForReason:(SentryProfilerTruncationReason)reason
 {
     [_timeoutTimer invalidate];
-    [_metricProfiler stop];
-    _truncationReason = reason;
+    [self._metricProfiler stop];
+    self._truncationReason = reason;
 
     if (![self isRunning]) {
         SENTRY_LOG_WARN(@"Profiler is not currently running.");
@@ -208,8 +205,8 @@ SentryProfiler *_Nullable _gCurrentProfiler;
 
 - (void)startMetricProfiler
 {
-    _metricProfiler = [[SentryMetricProfiler alloc] init];
-    [_metricProfiler start];
+    self._metricProfiler = [[SentryMetricProfiler alloc] init];
+    [self._metricProfiler start];
 }
 
 - (void)start

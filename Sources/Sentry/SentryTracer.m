@@ -11,11 +11,11 @@
 #import "SentryNSTimerFactory.h"
 #import "SentryNoOpSpan.h"
 #import "SentryOptions+Private.h"
+#import "SentryProfilerSerialization.h"
 #import "SentryProfilingConditionals.h"
 #import "SentryRandom.h"
 #import "SentrySDK+Private.h"
 #import "SentrySamplerDecision.h"
-#import "SentryProfilerSerialization.h"
 #import "SentryScope.h"
 #import "SentrySpan.h"
 #import "SentrySpanContext+Private.h"
@@ -629,12 +629,9 @@ static BOOL appStartMeasurementRead;
 - (void)captureTransactionWithProfile:(SentryTransaction *)transaction
                        startTimestamp:(NSDate *)startTimestamp
 {
-    SentryEnvelopeItem *profileEnvelopeItem = profileEnvelopeItem(transaction, startTimestamp, self.traceId, <#SentryProfilerState * _Nonnull state#>, <#SentryProfilerTruncationReason truncationReason#>, <#SentryDebugImageProvider * _Nonnull debugImageProvider#>, <#SentryHub * _Nonnull hub#>, <#SentryScreenFrames * _Nonnull screenFrameData#>)
-    
-        [SentryProfiler createProfilingEnvelopeItemForTransaction:transaction
-                                                   startTimestamp:startTimestamp];
+    SentryEnvelopeItem *envelopeItem = profileEnvelopeItem(transaction);
 
-    if (!profileEnvelopeItem) {
+    if (!envelopeItem) {
         [_hub captureTransaction:transaction withScope:_hub.scope];
         return;
     }
@@ -643,7 +640,7 @@ static BOOL appStartMeasurementRead;
         transaction.eventId.sentryIdString, self.internalID.sentryIdString);
     [_hub captureTransaction:transaction
                       withScope:_hub.scope
-        additionalEnvelopeItems:@[ profileEnvelopeItem ]];
+        additionalEnvelopeItems:@[ envelopeItem ]];
 }
 #endif // SENTRY_TARGET_PROFILING_SUPPORTED
 
