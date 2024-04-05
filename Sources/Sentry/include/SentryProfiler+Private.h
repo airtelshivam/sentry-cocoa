@@ -28,10 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 SENTRY_EXTERN const int kSentryProfilerFrequencyHz;
 
-SENTRY_EXTERN NSString *const kSentryProfilerSerializationKeySlowFrameRenders;
-SENTRY_EXTERN NSString *const kSentryProfilerSerializationKeyFrozenFrameRenders;
-SENTRY_EXTERN NSString *const kSentryProfilerSerializationKeyFrameRates;
-
 SENTRY_EXTERN_C_BEGIN
 
 /**

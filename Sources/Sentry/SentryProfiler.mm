@@ -51,10 +51,6 @@
 const int kSentryProfilerFrequencyHz = 101;
 NSTimeInterval kSentryProfilerTimeoutInterval = 30;
 
-NSString *const kSentryProfilerSerializationKeySlowFrameRenders = @"slow_frame_renders";
-NSString *const kSentryProfilerSerializationKeyFrozenFrameRenders = @"frozen_frame_renders";
-NSString *const kSentryProfilerSerializationKeyFrameRates = @"screen_frame_rates";
-
 using namespace sentry::profiling;
 
 std::mutex _gProfilerLock;

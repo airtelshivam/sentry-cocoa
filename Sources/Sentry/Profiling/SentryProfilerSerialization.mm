@@ -30,6 +30,10 @@
 #    import "SentryTransaction.h"
 #    import "SentryTransactionContext+Private.h"
 
+NSString *const kSentryProfilerSerializationKeySlowFrameRenders = @"slow_frame_renders";
+NSString *const kSentryProfilerSerializationKeyFrozenFrameRenders = @"frozen_frame_renders";
+NSString *const kSentryProfilerSerializationKeyFrameRates = @"screen_frame_rates";
+
 #    pragma mark - Private
 
 namespace {
@@ -222,7 +226,7 @@ serializedProfileData(
     const auto slowFrames = sliceGPUData(gpuData.slowFrameTimestamps, startSystemTime,
         endSystemTime, /*useMostRecentRecording */ NO);
     if (slowFrames.count > 0) {
-        mutableMetrics[@"slow_frame_renders"] =
+        mutableMetrics[kSentryProfilerSerializationKeySlowFrameRenders] =
             @ { @"unit" : @"nanosecond", @"values" : slowFrames };
     }
 
@@ -230,7 +234,7 @@ serializedProfileData(
         = sliceGPUData(gpuData.frozenFrameTimestamps, startSystemTime, endSystemTime,
             /*useMostRecentRecording */ NO);
     if (frozenFrames.count > 0) {
-        mutableMetrics[@"frozen_frame_renders"] =
+        mutableMetrics[kSentryProfilerSerializationKeyFrozenFrameRenders] =
             @ { @"unit" : @"nanosecond", @"values" : frozenFrames };
     }
 
@@ -239,7 +243,8 @@ serializedProfileData(
             = sliceGPUData(gpuData.frameRateTimestamps, startSystemTime, endSystemTime,
                 /*useMostRecentRecording */ YES);
         if (frameRates.count > 0) {
-            mutableMetrics[@"screen_frame_rates"] = @ { @"unit" : @"hz", @"values" : frameRates };
+            mutableMetrics[kSentryProfilerSerializationKeyFrameRates] =
+                @ { @"unit" : @"hz", @"values" : frameRates };
         }
     }
     metrics = mutableMetrics;
