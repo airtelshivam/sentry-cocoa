@@ -29,6 +29,7 @@
 #include "SentryCrashMonitorContext.h"
 #include "SentryCrashStackCursor_SelfThread.h"
 #include "SentryCrashThread.h"
+#include <exception>
 
 // #define SentryCrashLogger_LocalLevel TRACE
 #include "SentryCrashLogger.h"
